@@ -40,11 +40,11 @@ for phase=1:4
 %     phase3{phase}=phases{3};
 %     phase4{phase}=phases{4};
     
-     [AVG_xs_Phase{phase},AVGorg_xs_Phase{phase}]=average('xsens',n_sequences,m,s);
+     [AVG_au_Phase{phase},AVGorg_au_Phase{phase}]=average('xsens',n_sequences,m,s);
 end
 
 %% Plot average trajectory
-cmap = cool(size(AVG_xs_Phase{1},1)); 
+cmap = cool(size(AVG_au_Phase{1},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -66,14 +66,14 @@ plot3(phases{1,5}(:,1), phases{1,5}(:,2), phases{1,5}(:,3),'LineWidth',2)
 plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_xs_Phase{1},1)-5
+for k = 5 : size(AVG_au_Phase{1},1)-5
         
-        plot3([AVG_xs_Phase{1}(k-1,2) AVG_xs_Phase{1}(k,2)], [AVG_xs_Phase{1}(k-1,3) AVG_xs_Phase{1}(k,3)],...
-            [AVG_xs_Phase{1}(k-1,4) AVG_xs_Phase{1}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG_au_Phase{1}(k-1,2) AVG_au_Phase{1}(k,2)], [AVG_au_Phase{1}(k-1,3) AVG_au_Phase{1}(k,3)],...
+            [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 %% Plot average trajectory
-cmap = cool(size(AVG_xs_Phase{2},1)); 
+cmap = cool(size(AVG_au_Phase{2},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -92,14 +92,14 @@ plot3(phases{2,2}(:,1), phases{2,2}(:,2), phases{2,2}(:,3),'LineWidth',2)
 % plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_xs_Phase{2},1)-5
+for k = 5 : size(AVG_au_Phase{2},1)-5
         
-        plot3([AVG_xs_Phase{2}(k-1,2) AVG_xs_Phase{2}(k,2)], [AVG_xs_Phase{2}(k-1,3) AVG_xs_Phase{2}(k,3)],...
-            [AVG_xs_Phase{2}(k-1,4) AVG_xs_Phase{2}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG_au_Phase{2}(k-1,2) AVG_au_Phase{2}(k,2)], [AVG_au_Phase{2}(k-1,3) AVG_au_Phase{2}(k,3)],...
+            [AVG_au_Phase{2}(k-1,4) AVG_au_Phase{2}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 %% Plot average trajectory
-cmap = cool(size(AVG_xs_Phase{3},1)); 
+cmap = cool(size(AVG_au_Phase{3},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -118,14 +118,14 @@ plot3(phases{3,2}(:,1), phases{3,2}(:,2), phases{3,2}(:,3),'LineWidth',2)
 % plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_xs_Phase{3},1)-5
+for k = 5 : size(AVG_au_Phase{3},1)-5
         
-        plot3([AVG_xs_Phase{3}(k-1,2) AVG_xs_Phase{3}(k,2)], [AVG_xs_Phase{3}(k-1,3) AVG_xs_Phase{3}(k,3)],...
-            [AVG_xs_Phase{3}(k-1,4) AVG_xs_Phase{3}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG_au_Phase{3}(k-1,2) AVG_au_Phase{3}(k,2)], [AVG_au_Phase{3}(k-1,3) AVG_au_Phase{3}(k,3)],...
+            [AVG_au_Phase{3}(k-1,4) AVG_au_Phase{3}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 %% Plot average trajectory
-cmap = cool(size(AVG_xs_Phase{4},1)); 
+cmap = cool(size(AVG_au_Phase{4},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -144,10 +144,10 @@ plot3(phases{4,2}(:,1), phases{4,2}(:,2), phases{4,2}(:,3),'LineWidth',2)
 % plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_xs_Phase{4},1)-5
+for k = 5 : size(AVG_au_Phase{4},1)-5
         
-        plot3([AVG_xs_Phase{4}(k-1,2) AVG_xs_Phase{4}(k,2)], [AVG_xs_Phase{4}(k-1,3) AVG_xs_Phase{4}(k,3)],...
-            [AVG_xs_Phase{4}(k-1,4) AVG_xs_Phase{4}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG_au_Phase{4}(k-1,2) AVG_au_Phase{4}(k,2)], [AVG_au_Phase{4}(k-1,3) AVG_au_Phase{4}(k,3)],...
+            [AVG_au_Phase{4}(k-1,4) AVG_au_Phase{4}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 %% AVG org plot
@@ -155,5 +155,5 @@ figure; hold on; grid on;
 plot3(phases_org{1,1}(:,1), phases_org{1,1}(:,2), phases_org{1,1}(:,3),'LineWidth',2)
 plot3(phases_org{1,2}(:,1), phases_org{1,2}(:,2), phases_org{1,2}(:,3),'LineWidth',2)
 % plot3(phases_org{1,3}(:,1), phases_org{1,3}(:,2), phases_org{1,3}(:,3),'LineWidth',2)
-plot3(AVGorg_xs_Phase{1}(:,1), AVGorg_xs_Phase{1}(:,2), AVGorg_xs_Phase{1}(:,3),'LineWidth',2)
+plot3(AVGorg_au_Phase{1}(:,1), AVGorg_au_Phase{1}(:,2), AVGorg_au_Phase{1}(:,3),'LineWidth',2)
 

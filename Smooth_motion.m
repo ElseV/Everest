@@ -2,7 +2,6 @@
 %% Create four phases
 load('data_list');
 n=26;
-j=1;
 for i=1:n %insertion, retroflexion+inspect, intubation, retraction
     name1=string("data_list.seq%d");
     part1=char(sprintf(name1,i));
@@ -11,19 +10,25 @@ for i=1:n %insertion, retroflexion+inspect, intubation, retraction
 %     segments(:,1:end-2) = normc(segments(:,1:end-2)); %%???
     segments=note_phase(segments);
     sequences{i}=segments;
+    % manual standardization to correct for different body dim
     for j=1:69
-        maxvalue(i,j)=max(sequences{i}(:,j));
-        minvalue(i,j)=min(sequences{i}(:,j));
-        meanvalue(i,j)=mean(sequence{i}(:,j));
+        meanvalue(i,j)=mean(sequences{i}(:,j));
+        stdvalue(i,j)=std(sequences{i}(:,j));
     end
-    maxseg=max(maxvalue);
-    minseg=min(minvalue);
-    meanseg=mean(meanvalue);
-    sequences2{i}=sequences{i}-meanseg
 end
-n=length(sequences);
-%% Correct for body heigth?? 
+meanseg=mean(meanvalue); % mean
+stdseg=mean(stdvalue); % std
+% compute (data-mean)/std
+for ii=1:n
+    for jj=1:size(sequences{ii})
+        seqminmean{ii}(jj,:)=sequences{ii}(jj,1:end-2)-meanseg;
+        for column=1:size(seqminmean{ii},2)
+            seqnorm{ii}(jj,column)=seqminmean{ii}(jj,column)/stdseg(:,column);
+        end
+    end
+end
 
+n=length(seqnorm);
 
 %% path > velocity > acceleration
 % calculate path / (length*20) > cm/s
@@ -32,7 +37,7 @@ n=length(sequences);
 % ax=vx/(length(phase_seq)/20);
 %% Calculate acceleration for all columns (except last 2)
 for i=1:n
-    columns=sequences{1,i}(:,1:end-2);
+    columns=seqnorm{1,i}(:,1:end-2);
     ax{i}=(abs(diff(columns)))/(length(columns)/20)/(length(columns)/20);
 end
 
