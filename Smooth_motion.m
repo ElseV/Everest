@@ -1,11 +1,11 @@
-
+function [seq_rate,rate]=smooth_motion(datalist,namepart,n)
 %% Create four phases
-load('data_list');
-n=26;
+load(datalist);
+% n=26;
 for i=1:n %insertion, retroflexion+inspect, intubation, retraction
-    name1=string("data_list.seq%d");
-    part1=char(sprintf(name1,i));
-    seq=eval(part1);
+    name=string(namepart);%("data_list.seq%d");
+    part=char(sprintf(name,i));
+    seq=eval(part);
     segments=segment_prep(seq);
 %     segments(:,1:end-2) = normc(segments(:,1:end-2)); %%???
     segments=note_phase(segments);
@@ -101,3 +101,5 @@ for i=1:length(var_ax_tot)/27
 end
 
 [~,seq_rate]=sort(rate);
+% first is smoothest, last is most non smooth
+end

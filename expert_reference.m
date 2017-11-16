@@ -16,29 +16,30 @@
 
 clear all;
 % load orginal data list or new list of references
-load('data_list');
-ref_list.seq1=data_list.seq5; % Nabe
-ref_list.seq2=data_list.seq17; % Shingo
-ref_list.seq3=data_list.seq18; % Ivo
-ref_list.seq4=data_list.seq20; % Eran
-ref_list.seq5=data_list.seq22; % Leonardo
-ref_list.seq6=data_list.seq25; % Lee
-ref_list.seq7=data_list.seq1; % Vicky
-ref_list.seq8=data_list.seq12; % Cristian
-ref_list.seq9=data_list.seq15; % Paul
+% load('data_list');
+load('AVG_Seq_all');
+% ref_list.seq1=data_list.seq5; % Nabe
+% ref_list.seq2=data_list.seq17; % Shingo
+% ref_list.seq3=data_list.seq18; % Ivo
+% ref_list.seq4=data_list.seq20; % Eran
+% ref_list.seq5=data_list.seq22; % Leonardo
+% ref_list.seq6=data_list.seq25; % Lee
+% ref_list.seq7=data_list.seq1; % Vicky
+% ref_list.seq8=data_list.seq12; % Cristian
+% ref_list.seq9=data_list.seq15; % Paul
 
-N1=7; 
-N2=9; % amount of experts
+N1=1; 
+N2=7; % amount of experts
 nn=1;
 
 for i = N1:N2
 n=1;  
-name=string('ref_list.seq%d'); % data list
+name=string("AVG_Seq_all.seq%d"); % data list
 A1=i;
 part1=char(sprintf(name,A1));
 seq_ref=eval(part1);
 
-position_xs_ref=pos_xsens(seq_ref);
+position_xs_ref=pos_xsens_avg(seq_ref); % avg or normal?
 Reference = position_xs_ref;
 
     for ii=N1:N2
@@ -47,7 +48,7 @@ Reference = position_xs_ref;
         part2=char(sprintf(name,B1));
         seq_measure=eval(part2);
 
-        position_xs_measure=pos_xsens(seq_measure);
+        position_xs_measure=pos_xsens_avg(seq_measure); % avg or normal?
         Measurement = position_xs_measure;
 
         [~,ix,iy]=dtw(Reference(:,1:end-2)',Measurement(:,1:end-2)');
