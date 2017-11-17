@@ -30,10 +30,13 @@ for i=1:26
     PRHstd(i,1)=PathRH(i,1)-PRHmean;
     PLHstd(i,1)=PathLH(i,1)-PLHmean;
 end
+
+% smoothness rate
+[seq_rate,rate]=smooth_motion("data_list","data_list.seq%d",26); % % of non smoothness
  
-Info=horzcat(T,Tstd,PathUB,PUBstd,PathRH,PRHstd,PathLH,PLHstd);
+Info=horzcat(T,Tstd,PathUB,PUBstd,PathRH,PRHstd,PathLH,PLHstd,rate);
 columns={'time','std','pathUB','std1','pathRH','std2',...
-    'pathLH','std3'};
+    'pathLH','std3','smoothness'};
 Tinfo=array2table(Info,'VariableNames',columns);
 
 %% Info ref 
@@ -62,7 +65,7 @@ PLHmean=mean(PathLH);
 SUBmean=mean(SpeedUB);
 SRHmean=mean(SpeedRH);
 SLHmean=mean(SpeedLH);
-%% Info per avg sequence
+%% Info per ref sequence
 for i=1:9
     name=string("ref_list.seq%d");
     n=char(sprintf(name,i));

@@ -1,5 +1,7 @@
 function [seq_rate,rate]=smooth_motion(datalist,namepart,n)
 %% Create four phases
+% change in Ax > another derivate
+% variation in Ax > std
 load(datalist);
 % n=26;
 for i=1:n %insertion, retroflexion+inspect, intubation, retraction

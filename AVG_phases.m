@@ -6,11 +6,11 @@ event=1;
 for phase=1:4
     j=1;
     n_sequences=0;
-    for i=1:26 %insertion, retroflexion+inspect, intubation, retraction
-        name1=string("data_list.seq%d");
+    for i=1:15 %insertion, retroflexion+inspect, intubation, retraction
+        name1=string("data0724_list.seq%d");
         part1=char(sprintf(name1,i));
         seq=eval(part1);
-        position=segment_prep(seq);
+        position=sensor_prep(seq,1,21);
         if event==7
            ind1=min(find(position(:,end)==event));
            ind2=max(find(position(:,end)==event+2));
@@ -26,7 +26,7 @@ for phase=1:4
         s(j,:)=si;
         n_sequences=n_sequences+1;  
         
-        dlmwrite(['E:Camma\matlab\seq' int2str(j) '.txt'],phases{j},' ');
+%         dlmwrite(['E:Camma\matlab\seq' int2str(j) '.txt'],phases{j},' ');
         j=j+1;
     end
     event=event+2;
@@ -40,7 +40,7 @@ for phase=1:4
 %     phase3{phase}=phases{3};
 %     phase4{phase}=phases{4};
     
-     [AVG_au_Phase{phase},AVGorg_au_Phase{phase}]=average('xsens',n_sequences,m,s);
+%      [AVG_au_Phase{phase},AVGorg_au_Phase{phase}]=average('xsens',n_sequences,m,s);
 end
 
 %% Plot average trajectory
@@ -58,12 +58,12 @@ grid on;
 cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
 
 %Plot individual sequences
-plot3(phases{1,1}(:,1), phases{1,1}(:,2), phases{1,1}(:,3),'LineWidth',2)
-plot3(phases{1,2}(:,1), phases{1,2}(:,2), phases{1,2}(:,3),'LineWidth',2)
-plot3(phases{1,3}(:,1), phases{1,3}(:,2), phases{1,3}(:,3),'LineWidth',2)
-plot3(phases{1,4}(:,1), phases{1,4}(:,2), phases{1,4}(:,3),'LineWidth',2)
-plot3(phases{1,5}(:,1), phases{1,5}(:,2), phases{1,5}(:,3),'LineWidth',2)
-plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2)
+plot3(phases{1,7}(:,1), phases{1,7}(:,2), phases{1,7}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+plot3(phases{1,8}(:,1), phases{1,8}(:,2), phases{1,8}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases{1,3}(:,1), phases{1,3}(:,2), phases{1,3}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+plot3(phases{1,4}(:,1), phases{1,4}(:,2), phases{1,4}(:,3),'LineWidth',2,'color',[0.2 0.2 0.2])
+plot3(phases{1,5}(:,1), phases{1,5}(:,2), phases{1,5}(:,3),'LineWidth',2,'color',[0.1 0.1 0.1])
+plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2,'color','k')
 
 %Plot AVG
 for k = 5 : size(AVG_au_Phase{1},1)-5
@@ -72,6 +72,9 @@ for k = 5 : size(AVG_au_Phase{1},1)-5
             [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])
 %% Plot average trajectory
 cmap = cool(size(AVG_au_Phase{2},1)); 
 
