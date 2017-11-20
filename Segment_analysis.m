@@ -72,8 +72,20 @@ for i=1:4
         std_column(i,j)=std1;
     end  
     ind = floor(85/100*length(std_column(i,:)));
+    
+    max_std(i)=max(std_column(i,:));  
+    exp_rate(i,:)=std_column(i,:)/max_std(i);
+    
     newarr = sort(std_column(i,:));
     threshold = newarr(ind);
     moved_columns(i,:) = find(std_column(i,:)>threshold);
     moved_segments(i,:)=segments_moved(moved_columns(i,:))';
+    
+    newarr2 = sort(exp_rate(i,:));
+    threshold2 = newarr2(ind);
+    moved_columns2(i,:) = find(exp_rate(i,:)>threshold2);
+    exp_rate_threshold=exp_rate(:,moved_columns2(i,:));
+    moved_segments2(i,:)=segments_moved(moved_columns2(i,:))';
 end
+
+a=sort(exp_rate(3,:));

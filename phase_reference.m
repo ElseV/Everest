@@ -14,19 +14,19 @@
 
 % function reference_signal = phase_reference(N1,N2,maneuver)
 clear all;
-N1=7; 
+N1=2; 
 N2=9; % amount of experts
 event=1;
-load('ref_list');
+load('data0724_list');
 
 for phase=1:4
 
     for k = N1:N2
-        name=string('ref_list.seq%d');
+        name=string("data0724_list.seq%d");
         A1=k;
         part1=char(sprintf(name,A1));
         seq_ref=eval(part1);
-        Reference=pos_xsens(seq_ref);
+        Reference=pos_aurora(seq_ref,1,9);
         
         if event==7
             ind1=min(find(Reference(:,end)==event));
@@ -46,7 +46,7 @@ for phase=1:4
             B1=ii;
             part2=char(sprintf(name,B1));
             seq_measure=eval(part2);
-            Measurement=pos_xsens(seq_measure);
+            Measurement=pos_aurora(seq_measure,1,9);
             
             if event==7
                 ind3=min(find(Measurement(:,end)==event));

@@ -1,7 +1,7 @@
 
 %% Create four phases xsens
 clear phases; clear phases_org; clear mi; clear m; clear s; clear si
-load('data_list');
+load('data0724_list');
 event=1;
 for phase=1:4
     j=1;
@@ -42,6 +42,28 @@ for phase=1:4
     
 %      [AVG_au_Phase{phase},AVGorg_au_Phase{phase}]=average('xsens',n_sequences,m,s);
 end
+%% Vis original, avg & ref insertion
+%Plot individual sequences
+figure();hold on;
+grid on;
+plot3(phases{1,7}(:,1), phases{1,7}(:,2), phases{1,7}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+plot3(phases{1,1}(:,1), phases{1,1}(:,2), phases{1,1}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases{1,10}(:,1), phases{1,10}(:,2), phases{1,10}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+plot3(phases{1,5}(:,1), phases{1,5}(:,2), phases{1,5}(:,3),'LineWidth',2,'color',[0.7 0.7 0.7])
+plot3(phases{1,13}(:,1), phases{1,13}(:,2), phases{1,13}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
+%Plot REF
+plot3(phases{1,4}(:,1), phases{1,4}(:,2), phases{1,4}(:,3),'LineWidth',2,'color','g')
+
+%Plot AVG
+for k = 5 : size(AVG_au_Phase{1},1)-5
+        
+        plot3([AVG_au_Phase{1}(k-1,2) AVG_au_Phase{1}(k,2)], [AVG_au_Phase{1}(k-1,3) AVG_au_Phase{1}(k,3)],...
+            [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color','b' ,'LineWidth',3);hold on;
+
+end
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])
 
 %% Plot average trajectory
 cmap = cool(size(AVG_au_Phase{1},1)); 
@@ -63,7 +85,16 @@ plot3(phases{1,8}(:,1), phases{1,8}(:,2), phases{1,8}(:,3),'LineWidth',2,'color'
 plot3(phases{1,3}(:,1), phases{1,3}(:,2), phases{1,3}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
 plot3(phases{1,4}(:,1), phases{1,4}(:,2), phases{1,4}(:,3),'LineWidth',2,'color',[0.2 0.2 0.2])
 plot3(phases{1,5}(:,1), phases{1,5}(:,2), phases{1,5}(:,3),'LineWidth',2,'color',[0.1 0.1 0.1])
-plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2,'color','k')
+plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2,'color',[0.7 0.7 0.7])
+% plot3(phases{1,1}(:,1), phases{1,1}(:,2), phases{1,1}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
+% plot3(phases{1,2}(:,1), phases{1,2}(:,2), phases{1,2}(:,3),'LineWidth',2,'color',[0.7 0.7 0.7])
+% plot3(phases{1,9}(:,1), phases{1,9}(:,2), phases{1,9}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+% plot3(phases{1,10}(:,1), phases{1,10}(:,2), phases{1,10}(:,3),'LineWidth',2,'color',[0.2 0.2 0.2])
+% plot3(phases{1,11}(:,1), phases{1,11}(:,2), phases{1,11}(:,3),'LineWidth',2,'color',[0.1 0.1 0.1])
+% % plot3(phases{1,12}(:,1), phases{1,12}(:,2), phases{1,12}(:,3),'LineWidth',2,'color','k')
+% plot3(phases{1,13}(:,1), phases{1,13}(:,2), phases{1,13}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+% plot3(phases{1,14}(:,1), phases{1,14}(:,2), phases{1,14}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+% plot3(phases{1,15}(:,1), phases{1,15}(:,2), phases{1,15}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
 
 %Plot AVG
 for k = 5 : size(AVG_au_Phase{1},1)-5
