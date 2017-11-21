@@ -5,7 +5,7 @@ nn=1;
 
 for i = 1:7
 n=1;  
-name=string('AVG_Seq_all.seq%d'); % data list
+name=string("AVG_Seq_all.seq%d"); % data list
 A1=i;
 part1=char(sprintf(name,A1));
 seq_ref=eval(part1);
@@ -42,10 +42,37 @@ for h=1:7
     dtwphases{h}(:,a)=[];
     clear a
 end
-for j=1:7 %% wrong.....
-    for k=1:length(dtwphases{j})
-        tbl{k}=tabulate(dtwphases{j}(k,:));
-        maj{k}=tbl{k}(find(max(tbl{k}(:,2))),1);
+%% majority vote for phase
+clear maj_phases
+for j=1:7 % all avg
+for k=1:length(dtwphases{j}) % all time points
+    tbl{k}=tabulate(dtwphases{j}(k,:));
+    a=max(tbl{k}(:,2));
+    maj{k}=tbl{k}(tbl{k}(:,2)==a,1);
+    if size(maj{k},1)>=2 % when 50/50 majority
+        maj{k}=maj{k}(1,:); 
     end
-    maj_phases{j}=maj;
 end
+maj_phases{j}=maj;
+clear maj
+end
+
+%% add phases
+
+for i=1:7
+    nom=('AVG_Seq_all.seq%d');
+    avgname=char(sprintf(nom,i));
+    avgseq=eval(avgname);
+    avgseq.xsnorm=[avgseq.xsnorm cell2mat(maj_phases{i}')];
+    avgseq.xsorg=[avgseq.xsorg cell2mat(maj_phases{i}')];
+%     avgseq.aunorm=[avgseq.aunorm cell2mat(maj_phases{i}')];
+%     avgseq.auorg=[avgseq.auorg cell2mat(maj_phases{i}')];
+    new{i}=avgseq;
+end
+AVG_Seq_all.seq1=new{1};
+AVG_Seq_all.seq2=new{2};
+AVG_Seq_all.seq3=new{3};
+AVG_Seq_all.seq4=new{4};
+AVG_Seq_all.seq5=new{5};
+AVG_Seq_all.seq6=new{6};
+AVG_Seq_all.seq7=new{7};
