@@ -65,8 +65,21 @@ for i=1:7
     avgseq=eval(avgname);
     avgseq.xsnorm=[avgseq.xsnorm cell2mat(maj_phases{i}')];
     avgseq.xsorg=[avgseq.xsorg cell2mat(maj_phases{i}')];
-%     avgseq.aunorm=[avgseq.aunorm cell2mat(maj_phases{i}')];
-%     avgseq.auorg=[avgseq.auorg cell2mat(maj_phases{i}')];
+    if length(avgseq.aunorm) <= length(cell2mat(maj_phases{i}'))
+        a=length(cell2mat(maj_phases{i}'))-length(avgseq.aunorm);
+        newphases=cell2mat(maj_phases{i}(:,1:end-a)');
+        avgseq.aunorm=[avgseq.aunorm newphases];
+        avgseq.auorg=[avgseq.auorg newphases];
+    elseif length(avgseq.aunorm) >= length(cell2mat(maj_phases{i}'))
+        b=length(avgseq.aunorm)-length(cell2mat(maj_phases{i}'));
+        c=ones(b,1)*4;
+        newphases=[cell2mat(maj_phases{i}');c];
+        avgseq.aunorm=[avgseq.aunorm newphases];
+        avgseq.auorg=[avgseq.auorg newphases];
+    else
+        avgseq.aunorm=[avgseq.aunorm cell2mat(maj_phases{i}')];
+        avgseq.auorg=[avgseq.auorg cell2mat(maj_phases{i}')];
+    end
     new{i}=avgseq;
 end
 AVG_Seq_all.seq1=new{1};
@@ -76,3 +89,24 @@ AVG_Seq_all.seq4=new{4};
 AVG_Seq_all.seq5=new{5};
 AVG_Seq_all.seq6=new{6};
 AVG_Seq_all.seq7=new{7};
+
+%% Add "avg" of Vicky and Leonardo to array
+
+Leoxs=segment_prep(data_list.seq22);
+Leoxs=note_phase(Leoxs);
+Leoxs(:,end-1)=[];
+% Leoau=sensor_prep(data_list.seq22,1,21);
+% Leoau=note_phase(Leoau);
+% Leoau(:,end-1)=[];
+AVG_Seq_all.seq6.xsorg=Leoxs; % Leo
+% AVG_Seq_all.seq6.auorg=Leoau;% Leo
+AVG_Seq_all.seq7=new{6};
+AVG_Seq_all.seq8=new{7};
+Vickyxs=segment_prep(data_list.seq1);
+Vickyxs=note_phase(Vickyxs);
+Vickyxs(:,end-1)=[];
+Vickyau=sensor_prep(data_list.seq1,1,21);
+Vickyau=note_phase(Vickyau);
+Vickyau(:,end-1)=[];
+AVG_Seq_all.seq9.xsorg=Vickyxs; % Vicky
+AVG_Seq_all.seq9.auorg=Vickyau; % Vicky
