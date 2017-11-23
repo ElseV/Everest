@@ -9,9 +9,9 @@ function [AVG,AVG_org]=average(type,n,m,s)
 switch type
     case 'xsens'
 %         system(['E:\Camma\build\testDTW\Debug\testDTW_xsens.exe E:\Camma\matlab\seq ' int2str(n)])
-        system(['E:\Camma\build\testDTW\Debug\testDTW_test.exe E:\Camma\matlab\seq ' int2str(n)])
+        system(['I:\Camma\build\testDTW\Debug\testDTW_xsens.exe I:\Camma\matlab\seq ' int2str(n)])
     case 'aurora'
-        system(['E:\Camma\build\testDTW\Debug\testDTW_aurora.exe E:\Camma\matlab\seq ' int2str(n)])
+        system(['I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq ' int2str(n)])
 end
 
 %% Load average trajectory
