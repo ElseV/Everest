@@ -1,3 +1,13 @@
+%% AVG of AVG phase 3
+
+seq
+dlmwrite('I:Camma\matlab\seq1.txt',phase1avg1,' ');
+dlmwrite('I:Camma\matlab\seq2.txt',phase1avg2,' ');
+dlmwrite('I:Camma\matlab\seq3.txt',phase1avg3,' ');
+dlmwrite('I:Camma\matlab\seq4.txt',phase1refavg,' ');
+
+system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
+AVGavg_auphase1 = dlmread('seq-avg.txt');
 %% AVG of AVG
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
 load('AVG_Seq_all');

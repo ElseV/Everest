@@ -1,4 +1,25 @@
+% 
+avg_phase1.seq1=seq;%phase1avg1;
+avg_phase1.seq2=seq1;%phase1avg2;
+avg_phase1.seq3=seq2;%phase1avg3;
+avg_phase1.seq4=seq3;%phase1refavg;
 
+n_sequences=0;
+for i=1:4
+    name1=string("avg_phase1.seq%d");
+    part1=char(sprintf(name1,i));
+    seq=eval(part1);
+    [position{i},mi,si]=zscore(seq(:,1:end-1));
+    m(i,:)=mi;
+    s(i,:)=si;
+    n_sequences=n_sequences+1;
+    dlmwrite(['I:Camma\matlab\seq' int2str(i) '.txt'],position{i},' ');
+end
+[AVGavg_au,AVGavgorg_au]=average('aurora',n_sequences,m,s);
+% AVGavg_au_phase1 = dlmread(['seq-avg.txt']);
+% AVG_s=mean(s);
+% AVG_m=mean(m);
+% AVGavgorg_au_phase1=AVGavg_au_phase1(:,2:end).*AVG_s+AVG_m; % inverse z-score
 %% Create four phases xsens
 clear phases; clear phases_org; clear mi; clear m; clear s; clear si
 load('data0724_list');
@@ -61,6 +82,51 @@ for k = 5 : size(AVG_au_Phase{1},1)-5
             [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color','b' ,'LineWidth',3);hold on;
 
 end
+ 
+hold on
+%Plot AVGavg
+% phase1avgavg=AVGavg_aurora(min(find(AVGavg_aurora(:,end)==1)):max(find(AVGavg_aurora(:,end)==1)),:);
+% plot3(phase1avgavg(10:end-10,1),phase1avgavg(10:end-10,2),phase1avgavg(10:end-10,3),...
+%     'LineWidth',2,'color','r');
+
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])
+
+%% Plot ref avg
+seq=pos_aurora_avg(AVG_Seq_all.seq9,1,21);
+seq(:,1:end-1)=(seq(:,1:end-1));
+phase1refavg=seq(min(find(seq(:,end)==1)):max(find(seq(:,end)==1)),:);
+
+seq1=pos_aurora_avg(AVG_Seq_all.seq1,1,21);
+seq1(:,1:end-1)=(seq1(:,1:end-1));
+phase1avg1=seq1(min(find(seq1(:,end)==1)):max(find(seq1(:,end)==1)),:);
+seq2=pos_aurora_avg(AVG_Seq_all.seq8,1,21);
+seq2(:,1:end-1)=(seq2(:,1:end-1));
+phase1avg2=seq2(min(find(seq2(:,end)==1)):max(find(seq2(:,end)==1)),:);
+seq3=pos_aurora_avg(AVG_Seq_all.seq7,1,21);
+seq3(:,1:end-1)=(seq3(:,1:end-1));
+phase1avg3=seq3(min(find(seq3(:,end)==1)):max(find(seq3(:,end)==1)),:);
+
+figure,
+hold on; grid on;
+% ref avg
+plot3(phase1refavg(10:end-10,1),phase1refavg(10:end-10,2),phase1refavg(10:end-10,3),...
+    'LineWidth',2,'color','g');
+
+hold on;
+% avgs
+plot3(phase1avg1(10:end-10,1),phase1avg1(10:end-10,2),phase1avg1(10:end-10,3),...
+    'LineWidth',2,'color',[0.5 0.5 0.5]);
+plot3(phase1avg2(10:end-10,1),phase1avg2(10:end-10,2),phase1avg2(10:end-10,3),...
+    'LineWidth',2,'color',[0.3 0.3 0.3]);
+plot3(phase1avg3(10:end-10,1),phase1avg3(10:end-10,2),phase1avg3(10:end-10,3),...
+    'LineWidth',2,'color',[0.7 0.7 0.7]);
+
+% avg avg
+plot3(AVGavg_au(10:660,2),AVGavg_au(10:660,3),AVGavg_au(10:660,4),...
+    'LineWidth',2,'color','b');
+
 set(gca,'XTicklabel',[])
 set(gca,'YTicklabel',[])
 set(gca,'ZTicklabel',[])

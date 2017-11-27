@@ -146,3 +146,16 @@ ylabel('degrees');
 xlabel('time');
 title('retraction');
 legend('off');
+
+%% right hand position
+rh_position=[position_xsens(:,31:33) phases(:,end)];
+rh_position_phase3=rh_position(min(find(rh_position(:,end)==3)):...
+    max(find(rh_position(:,end)==3)),:);
+
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,1));
+hold on
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,2));
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,3));
+ylabel('position [cm]');
+xlabel('time [s]');
+title('Right hand position - Duodenal pylorus intubation');
