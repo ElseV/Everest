@@ -1,6 +1,5 @@
 %% AVG of AVG phase 3
 
-seq
 dlmwrite('I:Camma\matlab\seq1.txt',phase1avg1,' ');
 dlmwrite('I:Camma\matlab\seq2.txt',phase1avg2,' ');
 dlmwrite('I:Camma\matlab\seq3.txt',phase1avg3,' ');
@@ -13,11 +12,11 @@ clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; cle
 load('AVG_Seq_all');
 n_sequences=0;
 j=1;
-for i=1:8
+for i=1:9
     if i==6 || i==2 || i==3 || i==4 || i==5 
         continue
     end
-    name1=string("AVG_Seq_all.seq%d.aunorm");
+    name1=string("AVG_Seq_all.seq%d.auorg");
     part1=char(sprintf(name1,i));
     seq=eval(part1);
     dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],seq,' ');

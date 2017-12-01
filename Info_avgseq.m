@@ -53,3 +53,16 @@ end
 Info=horzcat(T,Tstd,Path,Pstd,rate);
 columns={'Time','stdT','Path','stdP','smoothnessrate'};
 Tinfo2=array2table(Info,'VariableNames',columns);
+
+%% Info avg tot
+AVGtot_au = [AVG_au_Phase{1}; AVG_au_Phase{2}; AVG_au_Phase{3}; AVG_au_Phase{4}];
+AVGtot_xs = [AVG_xs_Phase{1}; AVG_xs_Phase{2}; AVG_xs_Phase{3}; AVG_xs_Phase{4}];
+
+% seq_prep=pos_xsens_avg(AVGtot_xs); % new pos_xsens_avg
+% mean time
+T=length(AVGtot_au)/20; % in seconds (already cut mouth-mouth)
+Path=sum(sum(abs(diff(AVGtot_au(:,1:end-1)))));
+%% smoothness rate avg tot in comp with original
+
+[seq_rate,rate]=smooth_motion('data_list','data_list.seq%d',26); % % of non smoothness
+

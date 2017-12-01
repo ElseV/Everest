@@ -1,26 +1,63 @@
 %% Prepare Poses data
 
-xpo2_exp1=load('20170724T1049-50ms-Xsens-Poses.txt');
-xpo2_exp1=[xpo2_exp1 xpo2_exp1(:,2)];
-xpo2_exp1=xpo2_exp1(:,3:9);
+a=load('20170724T1049-50ms-Aurora-Poses.txt');
+a=a(:,3:end);
+% interpolates for missing values
+x=1:length(a);
+for i=1:size(a,2)
+    ind=~isnan(a(:,i));
+    a(:,i)=interp1(x(ind),a(ind,i),x)';
+    i=i+1;
+end
+% replace NaNs on outside of matrix by 0
+for i=1:length(a)
+    x=isnan(a(i,:));
+    a(i,x)=0;
 
-xpo5_exp2=load('20170724T1212-50ms-Xsens-Poses.txt');
-xpo5_exp2=[xpo5_exp2 xpo5_exp2(:,2)];
-xpo5_exp2=xpo5_exp2(:,3:9);
+end
 
-xpo3_exp3=load('20170724T1514-50ms-Xsens-Poses.txt');
-xpo3_exp3=[xpo3_exp3 xpo3_exp3(:,2)];
-xpo3_exp3=xpo3_exp3(:,3:9);
+b=load('20170724T1212-50ms-Aurora-Poses.txt');
+b=b(:,3:end);
+% interpolates for missing values
+x=1:length(b);
+for i=1:size(b,2)
+    ind=~isnan(b(:,i));
+    b(:,i)=interp1(x(ind),b(ind,i),x)';
+    i=i+1;
+end
+% replace NaNs on outside of matrix by 0
+for i=1:length(b)
+    x=isnan(b(i,:));
+    b(i,x)=0;
 
-xpo3_exp4=load('20170724T1659-50ms-Xsens-Poses.txt');
-xpo3_exp4=[xpo3_exp4 xpo3_exp4(:,2)];
+end
+
+c=load('20170724T1514-50ms-Aurora-Poses.txt');
+c=c(:,3:end);
+% interpolates for missing values
+x=1:length(c);
+for i=1:size(c,2)
+    ind=~isnan(c(:,i));
+    c(:,i)=interp1(x(ind),c(ind,i),x)';
+    i=i+1;
+end
+% replace NaNs on outside of matrix by 0
+for i=1:length(c)
+    x=isnan(c(i,:));
+    c(i,x)=0;
+
+end
+
+% xpo3_exp4=load('20170724T1659-50ms-Aurora-Poses.txt');
+% xpo3_exp4=[xpo3_exp4 xpo3_exp4(:,2)];
+% xpo3_exp4=xpo3_exp4(:,3:9);
 
 
-dlmwrite(['I:Camma\matlab\seq' int2str(1) '.txt'],xpo2_exp1,' ');
-dlmwrite(['I:Camma\matlab\seq' int2str(2) '.txt'],xpo5_exp2,' ');
-dlmwrite(['I:Camma\matlab\seq' int2str(3) '.txt'],xpo3_exp3,' ');
+dlmwrite(['I:Camma\matlab\seq' int2str(1) '.txt'],a,' ');
+dlmwrite(['I:Camma\matlab\seq' int2str(2) '.txt'],b,' ');
+dlmwrite(['I:Camma\matlab\seq' int2str(3) '.txt'],c,' ');
 
-system('I:\Camma\build\testDTW\Debug\testDTW_test.exe I:\Camma\matlab\seq 3')
+system('I:\Camma\build\testDTW\Debug\testDTW_aurora_poses.exe I:\Camma\matlab\seq 3')
 
 AVG = dlmread(['seq-avg.txt']);
 
