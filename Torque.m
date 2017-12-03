@@ -2,6 +2,22 @@ ref_list.seq1.torque=load('20170724T1208-50ms-Trocar-Angles2.txt');% Nabe
 ref_list.seq7.torque=load('20170724T1049-50ms-Trocar-Angles2.txt'); % Vicky
 ref_list.seq8.torque=load('20170724T1514-50ms-Trocar-Angles2.txt'); % Cristian
 ref_list.seq9.torque=load('20170724T1659-50ms-Trocar-Angles2.txt'); % Paul
+
+data_list.seq1.torque=ref_list.seq7.torque;
+data_list.seq2.torque=load('20170724T1153-50ms-Trocar-Angles2.txt');
+data_list.seq3.torque=load('20170724T1200-50ms-Trocar-Angles2.txt');
+data_list.seq4.torque=load('20170724T1203-50ms-Trocar-Angles2.txt');
+data_list.seq5.torque=ref_list.seq1.torque;
+data_list.seq6.torque=load('20170724T1212-50ms-Trocar-Angles2.txt');
+% data_list.seq7.torque=load('20171010T1544-50ms-Trocar-Angles2.txt');
+% data_list.seq8.torque=load('20171010T1622-50ms-Trocar-Angles2.txt');
+% data_list.seq9.torque=load('20171010T1627-50ms-Trocar-Angles2.txt');
+data_list.seq10.torque=load('20170724T1501-50ms-Trocar-Angles2.txt');
+data_list.seq11.torque=load('20170724T1508-50ms-Trocar-Angles2.txt');
+data_list.seq12.torque=ref_list.seq8.torque;
+data_list.seq13.torque=load('20170724T1518-50ms-Trocar-Angles2.txt');
+data_list.seq14.torque=load('20170724T1640-50ms-Trocar-Angles2.txt');
+data_list.seq15.torque=ref_list.seq9.torque;
 %%
 seq=ref_list.seq1;
 position_xsens=seq.xsenspos;
@@ -21,7 +37,7 @@ begin=min(find(position_xsens(:,end)==1));
 endd=max(find(position_xsens(:,end)==9));
 position_xsens=position_xsens(begin:endd,:);
 phases=note_phase(position_xsens);
-%% Torque
+% Torque
 torque=seq.torque(begin:endd,3);
 torque=[torque position_xsens(:,end) phases(:,end)];
 % interpolates for missing values
@@ -48,7 +64,7 @@ maxright=max(torque(:,1));
 maxleft=min(torque(:,1));
 nbacktozero=find(torque(:,1)>-10 & torque(:,1)<10);
 
-%% Translation
+% Translation
 trans=seq.torque(begin:endd,2);
 trans=[trans position_xsens(:,end) phases(:,end)];
 % interpolates for missing values
@@ -72,9 +88,9 @@ all(trans==0,2);
 trans(ans,:)=[];
 
 phase1trans=trans(min(find(trans(:,end)==1)):max(find(trans(:,end)==1)),:);
-phase2trans=trans(min(find(trans(:,end)==1)):max(find(trans(:,end)==2)),:);
-phase3trans=trans(min(find(trans(:,end)==1)):max(find(trans(:,end)==3)),:);
-phase4trans=trans(min(find(trans(:,end)==1)):max(find(trans(:,end)==4)),:);
+phase2trans=trans(min(find(trans(:,end)==2)):max(find(trans(:,end)==2)),:);
+phase3trans=trans(min(find(trans(:,end)==3)):max(find(trans(:,end)==3)),:);
+phase4trans=trans(min(find(trans(:,end)==4)):max(find(trans(:,end)==4)),:);
 
 % filtphase3=filter(B,A,phase3(:,1));
 % filtphase3smooth=imgaussfilt(filtphase3,4);
@@ -82,15 +98,15 @@ phase4trans=trans(min(find(trans(:,end)==1)):max(find(trans(:,end)==4)),:);
 figure, plot(find(phase3trans(:,3))./20,phase3trans(:,1)./10);
 ylabel('distance [cm]');
 xlabel('time [s]');
-title('Translation - Duodenal pylorus intubation - Sequence 12');
+title('Translation - Duodenal pylorus intubation');
 legend('off');
 
-%% prep visualization
+% prep visualization
 
 phase1=torque(min(find(torque(:,end)==1)):max(find(torque(:,end)==1)),:);
-phase2=torque(min(find(torque(:,end)==1)):max(find(torque(:,end)==2)),:);
-phase3=torque(min(find(torque(:,end)==1)):max(find(torque(:,end)==3)),:);
-phase4=torque(min(find(torque(:,end)==1)):max(find(torque(:,end)==4)),:);
+phase2=torque(min(find(torque(:,end)==2)):max(find(torque(:,end)==2)),:);
+phase3=torque(min(find(torque(:,end)==3)):max(find(torque(:,end)==3)),:);
+phase4=torque(min(find(torque(:,end)==4)):max(find(torque(:,end)==4)),:);
 % fit1=fit(find(torque(:,1)),torque(:,1),'linearinterp');
 % figure,plot(fit1);
 % figure,plot(fit(find(torque(:,1)),torque(:,1),'linearinterp'));
@@ -100,14 +116,14 @@ nfc=2*fc*0.5;
 [B,A]=butter(2,nfc);
 % filt2=filter(B,A,phase2(:,1));
 % figure,plot(find(phase2(:,1))./20,filt2);
-%% visualize pylorus intubation
+% visualize pylorus intubation
 filtphase3=filter(B,A,phase3(:,1));
 filtphase3smooth=imgaussfilt(filtphase3,4);
 % plot(find(phase3(:,1))./20,phase3);
 figure, plot(find(phase3(:,1))./20,filtphase3smooth);
-ylabel('degrees');
+ylabel('rotation [degrees]');
 xlabel('time [s]');
-title('Torque - Duodenal pylorus intubation - Sequence 12');
+title('Torque - Duodenal pylorus intubation');
 legend('off');
 %% subplot phases
 figure,subplot(2,2,1);
@@ -146,3 +162,16 @@ ylabel('degrees');
 xlabel('time');
 title('retraction');
 legend('off');
+
+%% right hand position
+rh_position=[position_xsens(:,31:33) phases(:,end)];
+rh_position_phase3=rh_position(min(find(rh_position(:,end)==3)):...
+    max(find(rh_position(:,end)==3)),:);
+
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,1));
+hold on
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,2));
+figure, plot(find(rh_position_phase3(:,1))./20,rh_position_phase3(:,3));
+ylabel('position [cm]');
+xlabel('time [s]');
+title('Right hand position - Duodenal pylorus intubation');
