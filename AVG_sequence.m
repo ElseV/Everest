@@ -1,9 +1,37 @@
+%% AVG of AVG phase 3
+
+dlmwrite('I:Camma\matlab\seq1.txt',phase1avg1,' ');
+dlmwrite('I:Camma\matlab\seq2.txt',phase1avg2,' ');
+dlmwrite('I:Camma\matlab\seq3.txt',phase1avg3,' ');
+dlmwrite('I:Camma\matlab\seq4.txt',phase1refavg,' ');
+
+system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
+AVGavg_auphase1 = dlmread('seq-avg.txt');
+%% AVG of AVG
+clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
+load('AVG_Seq_all');
+n_sequences=0;
+j=1;
+for i=1:9
+    if i==6 || i==2 || i==3 || i==4 || i==5 
+        continue
+    end
+    name1=string("AVG_Seq_all.seq%d.auorg");
+    part1=char(sprintf(name1,i));
+    seq=eval(part1);
+    dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],seq,' ');
+    n_sequences=n_sequences+1;
+    j=j+1;
+end
+%%
+system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 3')
+AVG = dlmread(['seq-avg.txt']);
 %% prepeare xsens sequences
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
 load('data_list');
 n_sequences=0;
 j=1;
-for i=23:26
+for i=1:9
     name1=string("data_list.seq%d");
     part1=char(sprintf(name1,i));
     seq=eval(part1);
@@ -13,7 +41,7 @@ for i=23:26
     m(j,:)=mi;
     s(j,:)=si;
 %     positionXS_neworg{i}=positionXS.*si+mi; % inverse z-score
-    dlmwrite(['E:Camma\matlab\seq' int2str(j) '.txt'],sequences{1,j},' ');
+    dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],sequences{1,j},' ');
     n_sequences=n_sequences+1;
     j=j+1;
 end
@@ -33,7 +61,7 @@ for i=23:26
     m(j,:)=mi;
     s(j,:)=si;
 %     positionXS_neworg{i}=positionXS.*si+mi; % inverse z-score
-    dlmwrite(['E:Camma\matlab\seq' int2str(j) '.txt'],sequences{1,j},' ');
+    dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],sequences{1,j},' ');
     n_sequences=n_sequences+1;
     j=j+1;
 end
@@ -45,8 +73,8 @@ AVG.Nabe.xsorg=AVGorg_xs_Nabe;
 AVG.Nabe.aunorm=AVG_au_Nabe;
 AVG.Nabe.auorg=AVGorg_au_Nabe;
 
-dlmwrite('E:Camma\matlab\avgNabe_aurora_position.txt',AVG.Nabe.auorg,' ');
-dlmwrite('E:Camma\matlab\avgNabe_xsens_position.txt',AVG.Nabe.xsorg,' ');
+dlmwrite('I:Camma\matlab\avgNabe_aurora_position.txt',AVG.Nabe.auorg,' ');
+dlmwrite('I:Camma\matlab\avgNabe_xsens_position.txt',AVG.Nabe.xsorg,' ');
 
 AVG.Cristian.xsnorm=AVG_xs_Cristian;
 AVG.Cristian.xsorg=AVGorg_xs_Cristian;

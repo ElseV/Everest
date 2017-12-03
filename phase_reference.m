@@ -14,53 +14,54 @@
 
 % function reference_signal = phase_reference(N1,N2,maneuver)
 clear all;
-N1=2; 
-N2=9; % amount of experts
+N1=1; 
+N2=6; % amount of experts
 event=1;
-load('data0724_list');
+% load('data0724_list');
+load('AVG_Seq_all');
 
 for phase=1:4
 
     for k = N1:N2
-        name=string("data0724_list.seq%d");
+        name=string("AVG_Seq_all.seq%d");
         A1=k;
         part1=char(sprintf(name,A1));
         seq_ref=eval(part1);
-        Reference=pos_aurora(seq_ref,1,9);
+        Reference=pos_xsens_avg(seq_ref);
         
-        if event==7
-            ind1=min(find(Reference(:,end)==event));
-            ind2=max(find(Reference(:,end)==event+2));
-            % Reference=position_xs_ref(ind1:ind2,:);
-            Reference(:,end)=0;
-            Reference(ind1:ind2,end)=phase;
-        else
-            ind1=min(find(Reference(:,end)==event));
-            ind2=min(find(Reference(:,end)==event+2));
-            % Reference = position_xs_ref(ind1:ind2-1,:);
-            Reference(:,end)=0;
-            Reference(ind1:ind2,end)=phase;
-        end
+%         if event==7
+%             ind1=min(find(Reference(:,end)==event));
+%             ind2=max(find(Reference(:,end)==event+2));
+%             % Reference=position_xs_ref(ind1:ind2,:);
+%             Reference(:,end)=0;
+%             Reference(ind1:ind2,end)=phase;
+%         else
+%             ind1=min(find(Reference(:,end)==event));
+%             ind2=min(find(Reference(:,end)==event+2));
+%             % Reference = position_xs_ref(ind1:ind2-1,:);
+%             Reference(:,end)=0;
+%             Reference(ind1:ind2,end)=phase;
+%         end
 
         for ii=N1:N2
             B1=ii;
             part2=char(sprintf(name,B1));
             seq_measure=eval(part2);
-            Measurement=pos_aurora(seq_measure,1,9);
+            Measurement=pos_xsens_avg(seq_measure);
             
-            if event==7
-                ind3=min(find(Measurement(:,end)==event));
-                ind4=max(find(Measurement(:,end)==event+2));
-                % Measurement=position_xs_measure(ind3:ind4,:);
-                Measurement(:,end)=0;
-                Measurement(ind3:ind4,end)=phase;
-            else
-                ind3=min(find(Measurement(:,end)==event));
-                ind4=min(find(Measurement(:,end)==event+2));
-                % Measurement = position_xs_measure(ind3:ind4-1,:);
-                Measurement(:,end)=0;
-                Measurement(ind3:ind4,end)=phase;
-            end
+%             if event==7
+%                 ind3=min(find(Measurement(:,end)==event));
+%                 ind4=max(find(Measurement(:,end)==event+2));
+%                 % Measurement=position_xs_measure(ind3:ind4,:);
+%                 Measurement(:,end)=0;
+%                 Measurement(ind3:ind4,end)=phase;
+%             else
+%                 ind3=min(find(Measurement(:,end)==event));
+%                 ind4=min(find(Measurement(:,end)==event+2));
+%                 % Measurement = position_xs_measure(ind3:ind4-1,:);
+%                 Measurement(:,end)=0;
+%                 Measurement(ind3:ind4,end)=phase;
+%             end
 
             [~,ix,iy]=dtw(Reference(:,1:end-2)',Measurement(:,1:end-2)');
             DTWref= Reference(ix,:);
@@ -105,33 +106,33 @@ for j=1:4 % phases
 %     ref_errper = ref_errper + (N1-1);
 end
 
-event=1;
+% event=1;
 for m=1:4
     if ref_err(m) ~= ref_acc(m)
         seq11=char(sprintf(name,ref_err(m)));
         seq1=eval(seq11);
-        seq1=pos_xsens(seq1);
-        if event==7
-            ind1=min(find(seq1(:,end)==event));
-            ind2=max(find(seq1(:,end)==event+2));
-            seq1part=seq1(ind1:ind2,:);
-        else
-            ind1=min(find(seq1(:,end)==event));
-            ind2=min(find(seq1(:,end)==event+2));
+        seq1=pos_xsens_avg(seq1);
+%         if event==7
+%             ind1=min(find(seq1(:,end)==event));
+%             ind2=max(find(seq1(:,end)==event+2));
+%             seq1part=seq1(ind1:ind2,:);
+%         else
+            ind1=min(find(seq1(:,end)==m));%event));
+            ind2=max(find(seq1(:,end)==m));%event+2)); %change to min
             seq1part = seq1(ind1:ind2-1,:);
-        end
+%         end
         seq22=char(sprintf(name,ref_acc(m)));
         seq2=eval(seq22);
-        seq2=pos_xsens(seq2);
-        if event==7
-            ind1=min(find(seq2(:,end)==event));
-            ind2=max(find(seq2(:,end)==event+2));
-            seq2part=seq2(ind1:ind2,:);
-        else
-            ind1=min(find(seq2(:,end)==event));
-            ind2=min(find(seq2(:,end)==event+2));
+        seq2=pos_xsens_avg(seq2);
+%         if event==7
+%             ind1=min(find(seq2(:,end)==event));
+%             ind2=max(find(seq2(:,end)==event+2));
+%             seq2part=seq2(ind1:ind2,:);
+%         else
+            ind1=min(find(seq2(:,end)==m));%event));
+            ind2=max(find(seq2(:,end)==m));%event+2)); %change to min
             seq2part = seq2(ind1:ind2-1,:);
-        end
+%         end
         paths1=sum(sum(abs(diff(seq1part(:,1:end-2)))));
         paths2=sum(sum(abs(diff(seq2part(:,1:end-2)))));
         if paths1 <= paths2

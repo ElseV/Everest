@@ -28,9 +28,16 @@ load('AVG_Seq_all');
 % ref_list.seq8=data_list.seq12; % Cristian
 % ref_list.seq9=data_list.seq15; % Paul
 
-N1=1; 
-N2=7; % amount of experts
+N1=7; 
+N2=9; % amount of experts
 nn=1;
+
+% Reference=pos_xsens_avg(AVG_Seq_all.seq1);
+% Measurement=pos_xsens_avg(AVG_Seq_all.seq2);
+% [~,ix,iy]=dtw(Reference(:,1:end-2)',Measurement(:,1:end-2)');
+% DTWref= Reference(ix,:);
+% DTWmeasure= Measurement(iy,:);
+% [sync_error,sync_error_per,accuracy,~,~]=errors_avg(DTWref,DTWmeasure);
 
 for i = N1:N2
 n=1;  
@@ -55,11 +62,8 @@ Reference = position_xs_ref;
         DTWref= Reference(ix,:);
         DTWmeasure= Measurement(iy,:);
        
-        [Sync_error(n),Sync_error_per(n),Accuracy(n),~,~]=errors(DTWref,DTWmeasure);
+        [Sync_error(n),Sync_error_per(n),Accuracy(n),~,~]=errors_avg(DTWref,DTWmeasure);
         
-        [sync_error,sync_error_per,...
-        accuracy,s1new_events,s2new_events]=errors(DTWref,DTWmeasure);
-        n=n+1;
     end
 
 SumAccuracy (nn) = sum(Accuracy,2);

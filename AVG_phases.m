@@ -1,4 +1,26 @@
+% 
+avg_phase1.seq1=seq;% phase1avg1; %
+avg_phase1.seq2=seq1;% phase1avg2; 
+avg_phase1.seq3=seq2;% phase1avg3; %
+avg_phase1.seq4=seq3;% phase1refavg; %
 
+n_sequences=0;
+for i=1:4
+    name1=string("avg_phase1.seq%d");
+    part1=char(sprintf(name1,i));
+    seq=eval(part1);
+    [position{i},mi,si]=zscore(seq(:,1:end-1));
+    m(i,:)=mi;
+    s(i,:)=si;
+    n_sequences=n_sequences+1;
+    dlmwrite(['I:Camma\matlab\seq' int2str(i) '.txt'],seq,' ');
+end
+% system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
+[AVGavg_au,AVGavgorg_au]=average('aurora',n_sequences,m,s);
+% AVGavg_au_2 = dlmread(['seq-avg.txt']);
+% AVG_s=mean(s);
+% AVG_m=mean(m);
+% AVGavgorg_au_phase1=AVGavg_au_phase1(:,2:end).*AVG_s+AVG_m; % inverse z-score
 %% Create four phases xsens
 clear phases; clear phases_org; clear mi; clear m; clear s; clear si
 load('data0724_list');
@@ -61,6 +83,64 @@ for k = 5 : size(AVG_au_Phase{1},1)-5
             [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color','b' ,'LineWidth',3);hold on;
 
 end
+ 
+hold on
+%Plot AVGavg
+% phase1avgavg=AVGavg_aurora(min(find(AVGavg_aurora(:,end)==1)):max(find(AVGavg_aurora(:,end)==1)),:);
+% plot3(phase1avgavg(10:end-10,1),phase1avgavg(10:end-10,2),phase1avgavg(10:end-10,3),...
+%     'LineWidth',2,'color','r');
+
+% ref avg
+plot3(phase1refavg(10:end-10,1),phase1refavg(10:end-10,2),phase1refavg(10:end-10,3),...
+    'LineWidth',2,'color','r');
+
+% avgs
+plot3(phase1avg1(10:end-10,1),phase1avg1(10:end-10,2),phase1avg1(10:end-10,3),...
+    'LineWidth',2,'color','m');
+plot3(phase1avg2(10:end-10,1),phase1avg2(10:end-10,2),phase1avg2(10:end-10,3),...
+    'LineWidth',2,'color','m');
+plot3(phase1avg3(10:end-10,1),phase1avg3(10:end-10,2),phase1avg3(10:end-10,3),...
+    'LineWidth',2,'color','m');
+
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])
+
+%% Plot ref avg
+seq=pos_aurora_avg(AVG_Seq_all.seq9,1,21);
+seq(:,1:end-1)=(seq(:,1:end-1));
+phase1refavg=zscore(seq(min(find(seq(:,end)==1)):max(find(seq(:,end)==1)),:));
+
+seq1=pos_aurora_avg(AVG_Seq_all.seq1,1,21);
+seq1(:,1:end-1)=(seq1(:,1:end-1));
+phase1avg1=zscore(seq1(min(find(seq1(:,end)==1)):max(find(seq1(:,end)==1)),:));
+seq2=pos_aurora_avg(AVG_Seq_all.seq8,1,21);
+seq2(:,1:end-1)=(seq2(:,1:end-1));
+phase1avg2=zscore(seq2(min(find(seq2(:,end)==1)):max(find(seq2(:,end)==1)),:));
+seq3=pos_aurora_avg(AVG_Seq_all.seq7,1,21);
+seq3(:,1:end-1)=(seq3(:,1:end-1));
+phase1avg3=zscore(seq3(min(find(seq3(:,end)==1)):max(find(seq3(:,end)==1)),:));
+
+figure,
+hold on; grid on;
+% ref avg
+plot3(phase1refavg(10:end-10,1),phase1refavg(10:end-10,2),phase1refavg(10:end-10,3),...
+    'LineWidth',2,'color','g');
+
+hold on;
+% avgs
+plot3(phase1avg1(10:end-10,1),phase1avg1(10:end-10,2),phase1avg1(10:end-10,3),...
+    'LineWidth',2,'color',[0.5 0.5 0.5]);
+plot3(phase1avg2(10:end-10,1),phase1avg2(10:end-10,2),phase1avg2(10:end-10,3),...
+    'LineWidth',2,'color',[0.3 0.3 0.3]);
+plot3(phase1avg3(10:end-10,1),phase1avg3(10:end-10,2),phase1avg3(10:end-10,3),...
+    'LineWidth',2,'color',[0.7 0.7 0.7]);
+
+AVGavg_au_phase1=zscore(AVGavgorg_au(10:660,:));
+% avg avg
+plot3(AVGavg_au_phase1(10:end-10,2),AVGavg_au_phase1(10:end-10,3),AVGavg_au_phase1(10:end-10,4),...
+    'LineWidth',2,'color','b'); % tm 660 if whole seq
+
 set(gca,'XTicklabel',[])
 set(gca,'YTicklabel',[])
 set(gca,'ZTicklabel',[])
@@ -95,6 +175,39 @@ plot3(phases{1,6}(:,1), phases{1,6}(:,2), phases{1,6}(:,3),'LineWidth',2,'color'
 % plot3(phases{1,13}(:,1), phases{1,13}(:,2), phases{1,13}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
 % plot3(phases{1,14}(:,1), phases{1,14}(:,2), phases{1,14}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
 % plot3(phases{1,15}(:,1), phases{1,15}(:,2), phases{1,15}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
+
+%Plot AVG
+for k = 5 : size(AVG_au_Phase{1},1)-5
+        
+        plot3([AVG_au_Phase{1}(k-1,2) AVG_au_Phase{1}(k,2)], [AVG_au_Phase{1}(k-1,3) AVG_au_Phase{1}(k,3)],...
+            [AVG_au_Phase{1}(k-1,4) AVG_au_Phase{1}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+
+end
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])
+
+%% Plot average trajectory
+cmap = cool(size(AVG_au_Phase{1},1)); 
+
+stys{1} = ':';
+stys{2} = ':';
+stys{3} = '-.';
+stys{4} = '-.';
+stys{5} = '--';
+stys{6} = '--';
+
+figure();hold on;
+grid on;
+cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
+
+%Plot individual sequences
+plot3(phases_org{1,7}(:,1), phases_org{1,7}(:,2), phases_org{1,7}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+plot3(phases_org{1,8}(:,1), phases_org{1,8}(:,2), phases_org{1,8}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{1,3}(:,1), phases_org{1,3}(:,2), phases_org{1,3}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),'LineWidth',2,'color',[0.2 0.2 0.2])
+plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),'LineWidth',2,'color',[0.1 0.1 0.1])
+plot3(phases_org{1,6}(:,1), phases_org{1,6}(:,2), phases_org{1,6}(:,3),'LineWidth',2,'color',[0.7 0.7 0.7])
 
 %Plot AVG
 for k = 5 : size(AVG_au_Phase{1},1)-5
@@ -159,7 +272,7 @@ for k = 5 : size(AVG_au_Phase{3},1)-5
 
 end
 %% Plot average trajectory
-cmap = cool(size(AVG_au_Phase{4},1)); 
+cmap = cool(size(AVG_au_phases{4},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -173,15 +286,15 @@ grid on;
 cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
 
 %Plot individual sequences
-plot3(phases{4,1}(:,1), phases{4,1}(:,2), phases{4,1}(:,3),'LineWidth',2)
-plot3(phases{4,2}(:,1), phases{4,2}(:,2), phases{4,2}(:,3),'LineWidth',2)
+plot3(phases_org{4,1}(:,1), phases_org{4,1}(:,2), phases_org{4,1}(:,3),'LineWidth',2)
+plot3(phases_org{4,2}(:,1), phases_org{4,2}(:,2), phases_org{4,2}(:,3),'LineWidth',2)
 % plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_au_Phase{4},1)-5
+for k = 5 : size(AVG_au_phases{4},1)-5
         
-        plot3([AVG_au_Phase{4}(k-1,2) AVG_au_Phase{4}(k,2)], [AVG_au_Phase{4}(k-1,3) AVG_au_Phase{4}(k,3)],...
-            [AVG_au_Phase{4}(k-1,4) AVG_au_Phase{4}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG_au_phases{4}(k-1,2) AVG_au_phases{4}(k,2)], [AVG_au_phases{4}(k-1,3) AVG_au_phases{4}(k,3)],...
+            [AVG_au_phases{4}(k-1,4) AVG_au_phases{4}(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 %% AVG org plot
