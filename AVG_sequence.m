@@ -24,7 +24,7 @@ for i=1:9
     j=j+1;
 end
 %%
-system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 3')
+system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
 AVG = dlmread(['seq-avg.txt']);
 %% prepeare xsens sequences
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
@@ -106,7 +106,7 @@ AVG.Lee.xsorg=AVGorg_xs_Lee;
 AVG.Lee.aunorm=AVG_au_Lee;
 AVG.Lee.auorg=AVGorg_au_Lee;
 %% Plot average trajectory
-cmap = cool(size(AVG_au_Eran,1)); 
+cmap = cool(size(AVG,1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -120,15 +120,15 @@ grid on;
 cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
 
 %Plot individual sequences
-plot3(sequences{1,1}(:,1), sequences{1,1}(:,2), sequences{1,1}(:,3),'LineWidth',2)
-plot3(sequences{1,2}(:,1), sequences{1,2}(:,2), sequences{1,2}(:,3),'LineWidth',2)
-plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
+% plot3(sequences{1,1}(:,1), sequences{1,1}(:,2), sequences{1,1}(:,3),'LineWidth',2)
+% plot3(sequences{1,2}(:,1), sequences{1,2}(:,2), sequences{1,2}(:,3),'LineWidth',2)
+% plot3(sequences{1,3}(:,1), sequences{1,3}(:,2), sequences{1,3}(:,3),'LineWidth',2)
 
 %Plot AVG
-for k = 5 : size(AVG_au_Eran,1)-5
+for k = 5 : size(AVG,1)-5
         
-        plot3([AVG_au_Eran(k-1,2) AVG_au_Eran(k,2)], [AVG_au_Eran(k-1,3) AVG_au_Eran(k,3)],...
-            [AVG_au_Eran(k-1,4) AVG_au_Eran(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+        plot3([AVG(k-1,2) AVG(k,2)], [AVG(k-1,3) AVG(k,3)],...
+            [AVG(k-1,4) AVG(k,4)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
 
 end
 

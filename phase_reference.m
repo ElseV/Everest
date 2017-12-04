@@ -15,20 +15,28 @@
 % function reference_signal = phase_reference(N1,N2,maneuver)
 clear all;
 N1=1; 
-N2=6; % amount of experts
+N2=4; % amount of experts
 event=1;
 % load('data0724_list');
 load('AVG_Seq_all');
 
+AVG_Seq_2407.seq1=AVG_Seq_all.seq1;
+AVG_Seq_2407.seq2=AVG_Seq_all.seq7;
+AVG_Seq_2407.seq3=AVG_Seq_all.seq8;
+AVG_Seq_2407.seq4=AVG_Seq_all.seq9;
+
 for phase=1:4
 
     for k = N1:N2
-        name=string("AVG_Seq_all.seq%d");
+        name=string("AVG_Seq_2407.seq%d");
         A1=k;
         part1=char(sprintf(name,A1));
         seq_ref=eval(part1);
-        Reference=pos_xsens_avg(seq_ref);
+        Reference=pos_aurora_avg(seq_ref,1,9);
         
+%         if k==2 || k==3 || k==4 || k==5 || k==6
+%             continue
+%         end
 %         if event==7
 %             ind1=min(find(Reference(:,end)==event));
 %             ind2=max(find(Reference(:,end)==event+2));
@@ -47,7 +55,10 @@ for phase=1:4
             B1=ii;
             part2=char(sprintf(name,B1));
             seq_measure=eval(part2);
-            Measurement=pos_xsens_avg(seq_measure);
+            Measurement=pos_aurora_avg(seq_measure,1,9);
+%             if k==2 || k==3 || k==4 || k==5 || k==6
+%                 continue
+%             end
             
 %             if event==7
 %                 ind3=min(find(Measurement(:,end)==event));

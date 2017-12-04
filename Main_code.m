@@ -1,7 +1,7 @@
 %% Main script
      
 %% Load data 
-load('data0724');
+load('data0724_list');
 
 %% DTW Experiments 
 % exp: Xsens_Pos, Xsens_Ori, Xsens_P&O, Aurora_Pos, Aurora_Ori, Aurora_P&O
@@ -9,7 +9,7 @@ load('data0724');
 
 [dist,ix,iy,sync_error,sync_error_per,...
     accuracy,s1new,s2new,old1,old2]=test_dtw('Aurora_Pos'...
-    ,data0724_list.seq4,data0724_list.seq10);
+    ,data0724.exp2.seq5,data0724.exp3.seq4);
 
 % now aurora has less sum of errors due to cut matrix
 % automatic cut xsens matrix to aurora matrix size in case of combo
@@ -100,14 +100,14 @@ box1=[MetricsTot(:,:,1);MetricsTot(:,:,2);MetricsTot(:,:,3);MetricsTot(:,:,4)...
 
 figure, subplot (1,3,1); boxplot(box1(:,1),...
     'MedianStyl','target','BoxStyle','filled');
-title('Synchronization error [s]');
+title({'Synchronization';' error [s]'});
 set(gca,'XTicklabel',[])
-subplot (1,3,2); boxplot(box1(:,2),...
+subplot (1,3,2); boxplot(box1(:,2)*100,...
     'MedianStyl','target','BoxStyle','filled');
-title('Synchronization error [%]');
+title({'Synchronization';' error [%]'});
 set(gca,'XTicklabel',[])
-subplot (1,3,3); boxplot(box1(:,3),...
+subplot (1,3,3); boxplot(box1(:,3)*100,...
     'MedianStyl','target','BoxStyle','filled');
-title('Accuracy [%]');
+title({'Accuracy';' [%]'});
 set(gca,'XTicklabel',[])
 
