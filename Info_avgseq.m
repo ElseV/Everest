@@ -65,4 +65,13 @@ Path=sum(sum(abs(diff(AVGtot_au(:,1:end-1)))));
 %% smoothness rate avg tot in comp with original
 
 [seq_rate,rate]=smooth_motion('data_list','data_list.seq%d',26); % % of non smoothness
+%% Info avg original & avgavg
+T1=length(AVG_au_phases{1})+length(AVG_au_phases{2})+length(AVG_au_phases{3})+length(AVG_au_phases{4});
+T2=length(AVG_xs_phases{1})+length(AVG_xs_phases{2})+length(AVG_xs_phases{3})+length(AVG_xs_phases{4});
+Ttot=(T1+T2/2)/20;
 
+T1=length(AVGavg_aurora);
+T2=length(AVGavg_xsens);
+
+T3=length(AVG_au_org);
+T4=legnth(AVG_xs_org);

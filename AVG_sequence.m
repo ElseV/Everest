@@ -9,14 +9,14 @@ system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
 AVGavg_auphase1 = dlmread('seq-avg.txt');
 %% AVG of AVG
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
-load('AVG_Seq_all');
+load('data0724_list');
 n_sequences=0;
 j=1;
-for i=1:9
-    if i==6 || i==2 || i==3 || i==4 || i==5 
-        continue
-    end
-    name1=string("AVG_Seq_all.seq%d.auorg");
+for i=1:15
+%     if i==6 || i==2 || i==3 || i==4 || i==5 
+%         continue
+%     end
+    name1=string("data0724.seq%d");
     part1=char(sprintf(name1,i));
     seq=eval(part1);
     dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],seq,' ');
@@ -28,25 +28,29 @@ system('I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 4')
 AVG = dlmread(['seq-avg.txt']);
 %% prepeare xsens sequences
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
-load('data_list');
+load('data0724_list');
 n_sequences=0;
 j=1;
-for i=1:9
-    name1=string("data_list.seq%d");
+for i=1:15
+    name1=string("data0724_list.seq%d");
     part1=char(sprintf(name1,i));
     seq=eval(part1);
-    position=segment_prep(seq);
+    position=sensor_prep(seq);
     position_org{j}=position(:,1:end-2);
     [sequences{j},mi,si] = zscore(position(:,1:end-2)); 
     m(j,:)=mi;
     s(j,:)=si;
 %     positionXS_neworg{i}=positionXS.*si+mi; % inverse z-score
-    dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],sequences{1,j},' ');
+    dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],position_org{j},' ');
     n_sequences=n_sequences+1;
     j=j+1;
 end
 %% average xsens
-[AVG_xs_Lee,AVGorg_xs_Lee]=average('xsens',n_sequences,m,s);
+system(['I:\Camma\build\testDTW\Debug\testDTW_aurora.exe I:\Camma\matlab\seq 15']);% int2str(n_sequences)])
+AVG_xs_org = dlmread('I:\Camma\matlab\seq-avg.txt');
+%%
+figure,
+plot3(AVG_au_org(10:500,2),AVG_au_org(10:500,3),AVG_au_org(10:500,3));
 %% prepare aurora sequences
 clear sequences; clear position_org; clear stys; clear mi; clear m; clear s; clear si
 n_sequences=0;
