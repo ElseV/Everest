@@ -1,10 +1,8 @@
 function [seq_rate,rate]=smooth_motion_avg(datalist,namepart,n)
-%% Create four phases
-% change in Ax > another derivate
-% variation in Ax > std
+%% Normalization
 load(datalist);
 % n=26;
-for i=1:n %insertion, retroflexion+inspect, intubation, retraction
+for i=1:n 
     name=string(namepart);%("data_list.seq%d");
     part=char(sprintf(name,i));
     seq=eval(part);

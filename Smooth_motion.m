@@ -105,3 +105,4 @@ end
 [~,seq_rate]=sort(rate);
 % first is smoothest, last is most non smooth
 end
+

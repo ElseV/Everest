@@ -43,12 +43,12 @@ for phase=1:4
             position(ind1:ind2-1,end)=phase;
         end
         phases_org{phase,j}=position(ind1:ind2-1,1:end-2);
-        [phases{phase,j},mi,si]=zscore(position(ind1:ind2-1,1:end-2));
-        m(j,:)=mi;
-        s(j,:)=si;
-        n_sequences=n_sequences+1;  
-        
-%         dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],phases_org{phase,j},' ');
+%         [phases{phase,j},mi,si]=zscore(position(ind1:ind2-1,1:end-2));
+%         m(j,:)=mi;
+%         s(j,:)=si;
+%         n_sequences=n_sequences+1;  
+%         
+% %         dlmwrite(['I:Camma\matlab\seq' int2str(j) '.txt'],phases_org{phase,j},' ');
         j=j+1;
     end
     event=event+2;
@@ -100,15 +100,12 @@ plot3(phases_org{1,14}(:,1), phases_org{1,14}(:,2), phases_org{1,14}(:,3),'LineW
 plot3(phases_org{1,15}(:,1), phases_org{1,15}(:,2), phases_org{1,15}(:,3),'LineWidth',2,'color',[0.8 0.8 0.8])
 
 %Plot REF
-plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),'LineWidth',2,'color','g')
+plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),...
+    'LineWidth',3,'color','b')
 
 %Plot AVG
-for k = 5 : size(AVG_au_phases{1},1)-5
-        
-        plot3([AVG_au_phases{1}(k-1,2) AVG_au_phases{1}(k,2)], [AVG_au_phases{1}(k-1,3) AVG_au_phases{1}(k,3)],...
-            [AVG_au_phases{1}(k-1,4) AVG_au_phases{1}(k,4)],'-','color','b' ,'LineWidth',3);hold on;
-
-end
+plot3(AVG_au_phases{1}(5:end-5,2), AVG_au_phases{1}(5:end-5,3), AVG_au_phases{1}(5:end-5,4),...
+    'LineWidth',3,'color','b','LineStyle','--')
  
 hold on
 
@@ -144,8 +141,8 @@ plot3(AVG_au_phases_avgexp{1}(5:end-5,2), AVG_au_phases_avgexp{1}(5:end-5,3), AV
      'LineWidth',3,'color','b','LineStyle','--')
 
 % Plot ref
-plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),...
-    'LineWidth',2,'color','g')
+plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,4}(:,3),...
+    'LineWidth',3,'color','g')
 
 set(gca,'XTicklabel',[])
 set(gca,'YTicklabel',[])
@@ -154,19 +151,19 @@ set(gca,'ZTicklabel',[])
 figure();hold on;
 grid on;
 %Plot REF
-plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),'LineWidth',2,'color','g')
+plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),'LineWidth',3,'color','b')
 hold on
 %Plot avg 
 plot3(AVG_au_phases{1}(5:end-5,2), AVG_au_phases{1}(5:end-5,3), AVG_au_phases{1}(5:end-5,4),...
-     'LineWidth',3,'color','b')
+     'LineWidth',3,'color','b','LineStyle','--')
 
 %Plot exp 1 = ref avg
 plot3(AVG_au_phases_exp1{1}(1:end-100,1), AVG_au_phases_exp1{1}(1:end-100,2), AVG_au_phases_exp1{1}(1:end-100,3),...
-    'LineWidth',3,'color','g','LineStyle','--')
+    'LineWidth',3,'color','g')
 
 %Plot avg avg
-% plot3(AVG_au_phases_avgexp{1}(5:end-5,2), AVG_au_phases_avgexp{1}(5:end-5,3), AVG_au_phases_avgexp{1}(5:end-5,4),...
-%      'LineWidth',3,'color','b','LineStyle','--')
+plot3(AVG_au_phases_avgexp{1}(5:end-5,2), AVG_au_phases_avgexp{1}(5:end-5,3), AVG_au_phases_avgexp{1}(5:end-5,4),...
+     'LineWidth',3,'color','g','LineStyle','--')
 
 % Plot other refs
 ref1=sensor_prep(ref_list.seq1,1,9);
@@ -226,19 +223,19 @@ plot3(AVG_au_phases_exp4{1}(5:end-5,2), AVG_au_phases_exp4{1}(5:end-5,3), AVG_au
 plot3(AVG_au_phases_exp1{1}(1:end-100,1), AVG_au_phases_exp1{1}(1:end-100,2), AVG_au_phases_exp1{1}(1:end-100,3),...
     'LineWidth',3,'color',[0.7 0.7 0.7],'LineStyle','--')
 %Plot REF
-plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),'LineWidth',3,'color','g')
+plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),'LineWidth',3,'color','b')
 hold on
 %Plot avg 
 plot3(AVG_au_phases{1}(5:end-5,2), AVG_au_phases{1}(5:end-5,3), AVG_au_phases{1}(5:end-5,4),...
-     'LineWidth',3,'color','b')
+     'LineWidth',3,'color','b','LineStyle','--')
 
 %Plot exp 1 = ref avg
 plot3(AVG_au_phases_exp1{1}(1:end-100,1), AVG_au_phases_exp1{1}(1:end-100,2), AVG_au_phases_exp1{1}(1:end-100,3),...
-    'LineWidth',3,'color','g','LineStyle','--')
+    'LineWidth',3,'color','g')
 
 %Plot avg avg
 plot3(AVG_au_phases_avgexp{1}(5:end-5,2), AVG_au_phases_avgexp{1}(5:end-5,3), AVG_au_phases_avgexp{1}(5:end-5,4),...
-     'LineWidth',3,'color','b','LineStyle','--')
+     'LineWidth',3,'color','g','LineStyle','--')
 set(gca,'XTicklabel',[])
 set(gca,'YTicklabel',[])
 set(gca,'ZTicklabel',[])
