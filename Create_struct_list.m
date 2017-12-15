@@ -1,9 +1,3 @@
-% data_list.seq1.xsenspos=xp1_exp1(:,3:end);
-% data_list.seq1.xsensori=xo1_exp1(:,3:end);
-% data_list.seq1.aurorapos=ap1_exp1(:,3:end);
-% data_list.seq1.auroraori=ao1_exp1(:,3:end);
-% data_list.seq1.events=ev1_exp1;
-
 data_list.seq1.xsenspos=xp2_exp1(:,3:end);
 data_list.seq1.xsensori=xo2_exp1(:,3:end);
 data_list.seq1.aurorapos=ap2_exp1(:,3:end);
