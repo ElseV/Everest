@@ -3,8 +3,8 @@ function [segments]=segment_prep(seq)
 
 position_xsens = seq.xsenspos; 
 % position_xsens(:,1:end-1) = normc(position_xsens(:,1:end-1));
-position_xsens = [position_xsens(:,1:3) position_xsens(:,31:33) ...
-    position_xsens(:,43:45) position_xsens(:,end)];
+% position_xsens = [position_xsens(:,1:3) position_xsens(:,31:33) ...
+%     position_xsens(:,43:45) position_xsens(:,end)];
 % 1-3 = Pelvis, 22-45 = shoulder, upper arm, forearm & hand (see segments
 % script)
 

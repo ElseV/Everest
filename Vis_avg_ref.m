@@ -276,7 +276,7 @@ for k = 5 : size(AVG_au_phases{4},1)-5
 end
 
 %% Plot phase 4
-cmap = cool(size(AVG_xs_phases{4},1)); 
+cmap = cool(size(AVG_xs_phases{2},1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -290,27 +290,28 @@ grid on;
 cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
 
 %Plot individual sequences
-plot3(phases_org{4,1}(1:120,31), phases_org{4,1}(1:120,32), phases_org{4,1}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
-plot3(phases_org{4,2}(1:120,31), phases_org{4,2}(1:120,32), phases_org{4,2}(1:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
-plot3(phases_org{4,3}(1:120,31), phases_org{4,3}(1:120,32), phases_org{4,3}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
-plot3(phases_org{4,4}(1:120,31), phases_org{4,4}(1:120,32), phases_org{4,4}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
-plot3(phases_org{4,5}(1:120,31), phases_org{4,5}(1:120,32), phases_org{4,5}(1:120,33),'LineWidth',2,'color','k')
-plot3(phases_org{4,6}(1:120,31), phases_org{4,6}(1:120,32), phases_org{4,6}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
-plot3(phases_org{4,7}(1:120,31), phases_org{4,7}(1:120,32), phases_org{4,7}(1:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
-plot3(phases_org{4,8}(1:120,31), phases_org{4,8}(1:120,32), phases_org{4,8}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
-plot3(phases_org{4,9}(1:120,31), phases_org{4,9}(1:120,32), phases_org{4,9}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
-plot3(phases_org{4,10}(1:120,31), phases_org{4,10}(1:120,32), phases_org{4,10}(1:120,33),'LineWidth',2,'color','k')
-plot3(phases_org{4,11}(1:120,31), phases_org{4,11}(1:120,32), phases_org{4,11}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
-plot3(phases_org{4,12}(10:120,31), phases_org{4,12}(10:120,32), phases_org{4,12}(10:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
-plot3(phases_org{4,13}(1:120,31), phases_org{4,13}(1:120,32), phases_org{4,13}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
-plot3(phases_org{4,14}(1:120,31), phases_org{4,14}(1:120,32), phases_org{4,14}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
-% plot3(phases_org{4,15}(:,1), phases_org{4,15}(:,2), phases_org{4,15}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{2,1}(1:120,31), phases_org{2,1}(1:120,32), phases_org{2,1}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
+plot3(phases_org{2,2}(1:120,31), phases_org{2,2}(1:120,32), phases_org{2,2}(1:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
+%plot3(phases_org{4,3}(1:120,31), phases_org{4,3}(1:120,32), phases_org{4,3}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
+plot3(phases_org{2,4}(1:120,31), phases_org{2,4}(1:120,32), phases_org{2,4}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
+plot3(phases_org{2,5}(1:120,31), phases_org{2,5}(1:120,32), phases_org{2,5}(1:120,33),'LineWidth',2,'color','k')
+plot3(phases_org{2,6}(1:120,31), phases_org{2,6}(1:120,32), phases_org{2,6}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
+plot3(phases_org{2,7}(1:120,31), phases_org{2,7}(1:120,32), phases_org{2,7}(1:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{2,8}(1:120,31), phases_org{2,8}(1:120,32), phases_org{2,8}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
+plot3(phases_org{2,9}(1:120,31), phases_org{2,9}(1:120,32), phases_org{2,9}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
+plot3(phases_org{2,10}(1:120,31), phases_org{2,10}(1:120,32), phases_org{2,10}(1:120,33),'LineWidth',2,'color','k')
+plot3(phases_org{2,11}(1:120,31), phases_org{2,11}(1:120,32), phases_org{2,11}(1:120,33),'LineWidth',2,'color',[0.2 0.2 0.2])
+plot3(phases_org{2,12}(10:120,31), phases_org{2,12}(10:120,32), phases_org{2,12}(10:120,33),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{2,13}(1:120,31), phases_org{2,13}(1:120,32), phases_org{2,13}(1:120,33),'LineWidth',2,'color',[0.6 0.6 0.6])
+plot3(phases_org{2,14}(1:120,31), phases_org{2,14}(1:120,32), phases_org{2,14}(1:120,33),'LineWidth',2,'color',[0.8 0.8 0.8])
+%plot3(phases_org{4,15}(:,1), phases_org{4,15}(:,2), phases_org{4,15}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
 
 hold on
 %Plot AVG
 
-plot3(AVG_xs_phases{4}(1:120,32), AVG_xs_phases{4}(1:120,33), AVG_xs_phases{4}(1:120,34),'LineWidth',3,'color','b')
+plot3(AVG_xs_phases{2}(1:120,32), AVG_xs_phases{2}(1:120,33), AVG_xs_phases{2}(1:120,34),'LineWidth',3,'color','b')
 
 set(gca,'XTicklabel',[])
 set(gca,'YTicklabel',[])
 set(gca,'ZTicklabel',[])
+

@@ -32,7 +32,7 @@ for phase=1:4
         name1=string('data0724_list.seq%d');
         part1=char(sprintf(name1,i));
         seq=eval(part1);
-        position=sensor_prep(seq,1,21);
+        position=segment_prep(seq);%sensor_prep(seq,1,21);
         if event==7
            ind1=min(find(position(:,end)==event));
            ind2=max(find(position(:,end)==event+2));

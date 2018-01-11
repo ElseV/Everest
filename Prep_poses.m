@@ -95,7 +95,7 @@ avg_xsNabe_segments=[avg_xsNabe_segment{1}(:,2:end) avg_xsNabe_segment{2}(:,2:en
 dlmwrite('I:Matlab_Everest\avg_xsNabe_segments.txt',avg_xsNabe_segments,' ');
 
 %% Plot average trajectory
-cmap = cool(size(avg_xs_segments,1)); 
+cmap = cool(size(avg_sensors,1)); 
 
 stys{1} = ':';
 stys{2} = ':';
@@ -109,13 +109,36 @@ grid on;
 cols = ['r' ;'g'; 'b' ;'y' ; 'c' ; 'm'];
 
 %Plot individual sequences
-% plot3(xpo2_exp1(:,1), xpo2_exp1(:,2), xpo2_exp1(:,3),'LineWidth',2)
-% plot3(xpo5_exp2(:,1), xpo5_exp2(:,2), xpo5_exp2(:,3),'LineWidth',2)
-% plot3(xpo3_exp3(:,1), xpo3_exp3(:,2), xpo3_exp3(:,3),'LineWidth',2)
+for i=1:15
+    if i==5
+        continue
+    end
+    name=string('data0724_list.seq%d');
+    n=char(sprintf(name,i));
+    seq=eval(n);
+    seq_prep=sensor_prep(seq,1,3);
+    plot3(seq_prep(:,1), seq_prep(:,2), seq_prep(:,3),'LineWidth',2,'color',[0.8 0.8 0.8])
+end
+
+for i=5
+    name=string('data0724_list.seq%d');
+    n=char(sprintf(name,i));
+    seq=eval(n);
+    seq_prep=sensor_prep(seq,1,3);
+    plot3(seq_prep(:,1), seq_prep(:,2), seq_prep(:,3),'LineWidth',2,'color','b')
+end
 
 %Plot AVG
-for k = 250 : size(avg_xs_segments,1)-100
-        
-        plot3([avg_xs_segments(k-1,8) avg_xs_segments(k,8)], [avg_xs_segments(k-1,9) avg_xs_segments(k,9)], [avg_xs_segments(k-1,10) avg_xs_segments(k,10)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+plot3(avg_sensors(350:end-50,1), avg_sensors(350:end-50,2), avg_sensors(350:end-50,3),'-.','color','b','LineWidth',2)
+% hold on
+% plot3(avg_sensors(350:550,1), avg_sensors(350:550,2), avg_sensors(350:550,3),'color','g','LineWidth',2)
+% for k = 250 : size(avg_sensors,1)-100
+%         
+%         plot3([avg_sensors(k-1,1) avg_sensors(k,1)], [avg_sensors(k-1,2) avg_sensors(k,2)],...
+%             [avg_sensors(k-1,3) avg_sensors(k,3)],'-','color',cmap(k,:) ,'LineWidth',3);hold on;
+% 
+% end
 
-end
+set(gca,'XTicklabel',[])
+set(gca,'YTicklabel',[])
+set(gca,'ZTicklabel',[])

@@ -36,8 +36,9 @@ end
 seq_prep{5}=AVG_au_phases_avgexp{1}(:,2:4);
 Path(5,1)=arclength(seq_prep{5}(:,1),seq_prep{5}(:,2),seq_prep{5}(:,3));
 
-seq_prep{6}=AVG_au_phases{1}(:,2:4);
-Path(6,1)=arclength(seq_prep{6}(:,1),seq_prep{6}(:,2),seq_prep{6}(:,3));
+% seq_prep{6}=AVG_au_phases{1}(:,2:4);
+seq_prep{6}=avg_sensors(:,1:3);
+Path(6,1)=arclength(seq_prep{6}(350:560,1),seq_prep{6}(350:560,2),seq_prep{6}(350:560,3));
 
 seq_prep{7}=ref7_phase1(:,1:3);
 Path(7,1)=arclength(seq_prep{7}(:,1),seq_prep{7}(:,2),seq_prep{7}(:,3));
@@ -70,9 +71,9 @@ end
 % end
 
 for i=1:26
-    if i==6
-        continue
-    end
+%     if i==6
+%         continue
+%     end
     columns=seq_prep{i};
     t2=[1:length(columns)]';
     t=repmat(t2,1,size(columns,2));
@@ -83,16 +84,16 @@ for i=1:26
 end
 
 for i=1:26
-    if i==6
-        continue
-    end
+%     if i==6
+%         continue
+%     end
     sm(i)=sqrt((sum(dy3{i}(:,1))).^2+(sum(dy3{i}(:,2))).^2+(sum(dy3{i}(:,3))).^2);
 end
 % sqrt(sum(diff(data,[],1).^2,2));
 
 max_change=max(sm);
 new_rate=sm/max_change;
-new_rate_smooth = 1-new_rate';
+new_rate_smooth = 1-new_rate;
 
 %%
 t_avg=[T_all(1:6);NaN(9,1)];
