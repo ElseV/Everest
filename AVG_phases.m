@@ -32,7 +32,7 @@ for phase=1:4
         name1=string('data0724_list.seq%d');
         part1=char(sprintf(name1,i));
         seq=eval(part1);
-        position=segment_prep(seq);%sensor_prep(seq,1,21);
+        position=sensor_prep(seq,1,3);%sensor_prep(seq,1,21);
         if event==7
            ind1=min(find(position(:,end)==event));
            ind2=max(find(position(:,end)==event+2));
@@ -83,24 +83,24 @@ AVG_au_phases_avgexp{4} = dlmread(['I:\Camma\matlab\seq-avg.txt']);
 figure();hold on;
 grid on;
 
-plot3(phases_org{1,1}(:,1), phases_org{1,1}(:,2), phases_org{1,1}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
-plot3(phases_org{1,2}(:,1), phases_org{1,2}(:,2), phases_org{1,2}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
-plot3(phases_org{1,3}(10:end,1), phases_org{1,3}(10:end,2), phases_org{1,3}(10:end,3),'LineWidth',2,'color',[0.5 0.5 0.5])
-plot3(phases_org{1,4}(:,1), phases_org{1,4}(:,2), phases_org{1,4}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
-plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),'LineWidth',2,'color',[0.7 0.7 0.7])
-plot3(phases_org{1,6}(:,1), phases_org{1,6}(:,2), phases_org{1,6}(:,3),'LineWidth',2,'color',[0.8 0.8 0.8])
-plot3(phases_org{1,7}(:,1), phases_org{1,7}(:,2), phases_org{1,7}(:,3),'LineWidth',2,'color','k')
-plot3(phases_org{1,8}(:,1), phases_org{1,8}(:,2), phases_org{1,8}(:,3),'LineWidth',2,'color',[0.3 0.3 0.3])
-plot3(phases_org{1,9}(:,1), phases_org{1,9}(:,2), phases_org{1,9}(:,3),'LineWidth',2,'color',[0.4 0.4 0.4])
-plot3(phases_org{1,10}(:,1), phases_org{1,10}(:,2), phases_org{1,10}(:,3),'LineWidth',2,'color',[0.5 0.5 0.5])
-plot3(phases_org{1,11}(:,1), phases_org{1,11}(:,2), phases_org{1,11}(:,3),'LineWidth',2,'color',[0.6 0.6 0.6])
-plot3(phases_org{1,12}(10:end,1), phases_org{1,12}(10:end,2), phases_org{1,12}(10:end,3),'LineWidth',2,'color',[0.7 0.7 0.7])
-plot3(phases_org{1,13}(:,1), phases_org{1,13}(:,2), phases_org{1,13}(:,3),'LineWidth',2,'color',[0.8 0.8 0.8])
-plot3(phases_org{1,14}(:,1), phases_org{1,14}(:,2), phases_org{1,14}(:,3),'LineWidth',2,'color','k')
-plot3(phases_org{1,15}(:,1), phases_org{1,15}(:,2), phases_org{1,15}(:,3),'LineWidth',2,'color',[0.8 0.8 0.8])
+plot3(phases_org{1,1}(1:end-150,1), phases_org{1,1}(1:end-150,2), phases_org{1,1}(1:end-150,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+plot3(phases_org{1,2}(1:end-50,1), phases_org{1,2}(1:end-50,2), phases_org{1,2}(1:end-50,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{1,3}(10:end-50,1), phases_org{1,3}(10:end-50,2), phases_org{1,3}(10:end-50,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+plot3(phases_org{1,4}(1:end-50,1), phases_org{1,4}(1:end-50,2), phases_org{1,4}(1:end-50,3),'LineWidth',2,'color',[0.6 0.6 0.6])
+plot3(phases_org{1,5}(1:end-50,1), phases_org{1,5}(1:end-50,2), phases_org{1,5}(1:end-50,3),'LineWidth',2,'color',[0.7 0.7 0.7])
+plot3(phases_org{1,6}(1:end-50,1), phases_org{1,6}(1:end-50,2), phases_org{1,6}(1:end-50,3),'LineWidth',2,'color',[0.8 0.8 0.8])
+plot3(phases_org{1,7}(1:end-50,1), phases_org{1,7}(1:end-50,2), phases_org{1,7}(1:end-50,3),'LineWidth',2,'color','k')
+plot3(phases_org{1,8}(1:end-50,1), phases_org{1,8}(1:end-50,2), phases_org{1,8}(1:end-50,3),'LineWidth',2,'color',[0.3 0.3 0.3])
+plot3(phases_org{1,9}(1:end-50,1), phases_org{1,9}(1:end-50,2), phases_org{1,9}(1:end-50,3),'LineWidth',2,'color',[0.4 0.4 0.4])
+plot3(phases_org{1,10}(1:end-50,1), phases_org{1,10}(1:end-50,2), phases_org{1,10}(1:end-50,3),'LineWidth',2,'color',[0.5 0.5 0.5])
+plot3(phases_org{1,11}(1:end-50,1), phases_org{1,11}(1:end-50,2), phases_org{1,11}(1:end-50,3),'LineWidth',2,'color',[0.6 0.6 0.6])
+plot3(phases_org{1,12}(10:end-50,1), phases_org{1,12}(10:end-50,2), phases_org{1,12}(10:end-50,3),'LineWidth',2,'color',[0.7 0.7 0.7])
+plot3(phases_org{1,13}(1:end-50,1), phases_org{1,13}(1:end-50,2), phases_org{1,13}(1:end-50,3),'LineWidth',2,'color',[0.8 0.8 0.8])
+plot3(phases_org{1,14}(1:end-50,1), phases_org{1,14}(1:end-50,2), phases_org{1,14}(1:end-50,3),'LineWidth',2,'color','k')
+plot3(phases_org{1,15}(1:end-50,1), phases_org{1,15}(1:end-50,2), phases_org{1,15}(1:end-50,3),'LineWidth',2,'color',[0.8 0.8 0.8])
 
 %Plot REF
-plot3(phases_org{1,5}(:,1), phases_org{1,5}(:,2), phases_org{1,5}(:,3),...
+plot3(phases_org{1,5}(1:end-50,1), phases_org{1,5}(1:end-50,2), phases_org{1,5}(1:end-50,3),...
     'LineWidth',3,'color','b')
 
 %Plot AVG
